@@ -1,0 +1,58 @@
+Abbreviation,Name
+PHW,Philadelphia Warriors
+BOS,Boston Celtics
+SYR,Syracuse Nationals
+NYK,New York Knicks
+FTW,Fort Wayne Pistons
+MNL,Minneapolis Lakers
+STL,St. Louis Hawks
+ROC,Rochester Royals
+DET,Detroit Pistons
+CIN,Cincinnati Royals
+LAL,Los Angeles Lakers
+CHP,Chicago Packers
+SFW,San Francisco Warriors
+CHZ,Chicago Zephyrs
+PHI,Philadelphia 76ers
+BAL,Baltimore Bullets
+CHI,Chicago Bulls
+SEA,Seattle SuperSonics
+SDR,San Diego Rockets
+MIL,Milwaukee Bucks
+ATL,Atlanta Hawks
+PHO,Phoenix Suns
+BUF,Buffalo Braves
+CLE,Cleveland Cavaliers
+POR,Portland Trail Blazers
+GSW,Golden State Warriors
+HOU,Houston Rockets
+KCO,Kansas City-Omaha Kings
+CAP,Capital Bullets
+WSB,Washington Bullets
+NOJ,New Orleans Jazz
+KCK,Kansas City Kings
+NJN,New Jersey Nets
+SAS,San Antonio Spurs
+DEN,Denver Nuggets
+IND,Indiana Pacers
+SDC,San Diego Clippers
+UTA,Utah Jazz
+DAL,Dallas Mavericks
+LAC,Los Angeles Clippers
+SAC,Sacramento Kings
+CHO,Charlotte Hornets
+MIA,Miami Heat
+ORL,Orlando Magic
+MIN,Minnesota Timberwolves
+TOR,Toronto Raptors
+VAN,Vancouver Grizzlies
+WAS,Washington Wizards
+MEM,Memphis Grizzlies
+NOH,New Orleans Hornets
+CHA,Charlotte Bobcats
+NOK,New Orleans/Oklahoma City Hornets
+OKC,Oklahoma City Thunder
+BRK,Brooklyn Nets
+NOP,New Orleans Pelicans
+NYN,New York Nets
+CHH,Charlotte Hornets
