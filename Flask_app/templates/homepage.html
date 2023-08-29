@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Ranker</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">NBA Ranker</h1>
+        <img src="your_image_path_here.jpg" alt="NBA" class="img-fluid rounded mx-auto d-block mt-3">
+
+        <form action="/predict" method="POST" class="mt-5">
+            <div class="form-group">
+                <label for="name">Player Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter name" required>
+            </div>
+
+            <!-- Repeat for other fields, example: -->
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" placeholder="Enter age" required>
+            </div>
+            
+            <!-- Example dropdown for Year -->
+            <div class="form-group">
+                <label for="year">Year</label>
+                <select class="form-control" id="year">
+                    <option value="2022">2022</option>
+                    <!-- Add other years as needed -->
+                </select>
+            </div>
+            
+            <!-- Continue for all other fields... -->
+
+            <button type="submit" class="btn btn-primary mt-3">Check Rank</button>
+        </form>
+        
+        <p class="text-center mt-5">Enter your stats to check your rank.</p>
+    </div>
+    <!-- Add Bootstrap JS and Popper.js for Bootstrap functionality -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
