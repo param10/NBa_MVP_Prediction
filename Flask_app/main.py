@@ -1,6 +1,9 @@
-from flask import Flask, render_template,redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for
+import pickle
+import pandas as pd
 
 app = Flask(__name__)
+app.secret_key = 'some_secret_key'  # Required for flashing messages
 
 @app.route('/')
 def root():
@@ -40,7 +43,80 @@ def homepage():
 
     return render_template('homepage.html', fields=fields)
 
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    # Load the model
+    with open('/Users/paramjaswal/Desktop/NBa/neuralNetwork.pkl', 'rb') as model_file:
+        model = pickle.load(model_file)
+    
+
+    # Extract data from form
+    data = {key: float(request.form[key]) for key in request.form if key != "name"}
+    player_name = request.form["name"]
+    year = int(request.form["Year"])
+
+    # Compute additional metrics based on the provided data
+    data['FG%'] = data['FG'] / data['FGA']
+    data['3P%'] = data['3P'] / data['3PA']
+    data['2P%'] = data['2P'] / data['2PA']
+    data['eFG%'] = (data['FG'] + 0.5 * data['3P']) / data['FGA']
+    data['FT%'] = data['FT'] / data['FTA']
+    data['TRB'] = data['ORB'] + data['DRB']
+    data['PTS'] = data['FT'] + 2 * data['2P'] + 3 * data['3P']
+    data['W/L%'] = data['W'] / (data['W'] + data['L'])
+
+    # Extract relevant data from the main stats DataFrame based on the provided year
+    stats = pd.read_csv("/Users/paramjaswal/Desktop/NBa/Player_mvp_stats.csv")
+    data_for_year = stats[stats['Year'] == year]
+
+    predictors = ['Age',  'G', 'GS', 'MP', 'FG', 'FGA', 'FG%', '3P',
+       '3PA', '3P%', '2P', '2PA', '2P%', 'eFG%', 'FT', 'FTA', 'FT%', 'ORB',
+       'DRB', 'TRB', 'AST', 'STL', 'BLK', 'TOV', 'PF', 'PTS', 'Year',
+        'W', 'L', 'W/L%', 'GB', 'PS/G', 'PA/G', 'SRS']
+    
+    # Extract relevant columns from data_for_year
+    data_for_year_relevant = data_for_year[predictors]
+
+    # Ensure that player_data only contains the predictors columns
+    player_data = pd.DataFrame([data], columns=predictors)
+
+    # Concatenate the player_data with the relevant data_for_year columns
+    data_for_prediction = pd.concat([data_for_year_relevant, player_data], ignore_index=True)
+
+
+    # Predict MVP share for all players including the hypothetical player
+    predictions = model.predict(data_for_prediction)
+
+    # Create the final DataFrame with player names and their predicted MVP share
+    player_names = data_for_year['Player'].tolist() + [player_name]
+    result_df = pd.DataFrame({
+        'Player': player_names,
+        'Predicted MVP Share': predictions
+    })
+
+    # Sort players based on predicted MVP share
+    sorted_df = result_df.sort_values(by="Predicted MVP Share", ascending=False).reset_index(drop=True)
+
+    # Display top ten predictions
+    top_ten = sorted_df.head(10)
+    for index, row in top_ten.iterrows():
+        flash(f"Rank {index + 1}: {row['Player']} with MVP Share of {row['Predicted MVP Share']:.2f}")
+    top_ten = sorted_df.head(10)
+    messages = []
+    for index, row in top_ten.iterrows():
+        messages.append(f"Rank {index + 1}: {row['Player']} with MVP Share of {row['Predicted MVP Share']:.2f}")
+        
+    return render_template('predict.html', messages=messages)
+
+
+
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug=True)
+
+
+
+
+
 
 
